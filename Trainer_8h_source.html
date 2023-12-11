@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Sentence Encoder/Decoder: Trainer.h Source File</title>
+<title>Sentence Encoder/Decoder (SentEncDec): Trainer.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Sentence Encoder/Decoder
+   <div id="projectname">Sentence Encoder/Decoder (SentEncDec)
    </div>
   </td>
  </tr>
@@ -69,7 +69,7 @@ $(function() {
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#ifndef TRAINER_H_</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#define TRAINER_H_</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;NetLib.h&quot;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;NetLib.h&gt;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;cublas_v2.h&quot;</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div>
@@ -96,56 +96,57 @@ $(function() {
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            <span class="keywordtype">int</span> savePeriod = 10000, <span class="keywordtype">int</span> tempSavePeriod = 200, <span class="keywordtype">int</span> printPeriod = 20, <span class="keywordtype">int</span> maxEpochs = 100, <span class="keywordtype">bool</span> debug = <span class="keyword">false</span>,</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            dtype2* scoreFinal = NULL, <span class="keywordtype">int</span>* matchesFinal = NULL);</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    cublasHandle_t&amp; handle;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    Config&amp; config;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    Network&amp; net;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    Optimizer&amp; optimizer;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    WordVectors &amp;wv;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    SedInputSource&amp; trainSource;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    SedInputSource&amp; testSource;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    SedInputSource&amp; testMatchingSource;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">void</span> saveScore(<span class="keywordtype">int</span> iterNum, dtype2 score, dtype2 loss, <span class="keywordtype">long</span> clock);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> saveMatching(<span class="keywordtype">int</span> iterNum, <span class="keywordtype">int</span> numWords, <span class="keywordtype">int</span> tightMatches, <span class="keywordtype">int</span> looseMatches,</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            dtypeh allMatch, <span class="keywordtype">long</span> clock);</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">void</span> save(<span class="keywordtype">int</span> epochNum, <span class="keywordtype">int</span> iterNum, <span class="keywordtype">int</span> sentenceIx, <span class="keywordtype">long</span> clock);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">void</span> tempSave(<span class="keywordtype">int</span> epochNum, <span class="keywordtype">int</span> iterNum, <span class="keywordtype">int</span> sentenceIx, <span class="keywordtype">long</span> clock);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">void</span> saveState(<span class="keyword">const</span> <span class="keywordtype">char</span>* stateFilename, <span class="keywordtype">string</span> weightsFilename, <span class="keywordtype">string</span> initDeltaFilename,</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            <span class="keywordtype">string</span> curandStatesFilename, <span class="keywordtype">string</span> replacerStateFilename, <span class="keywordtype">int</span> epochNum, <span class="keywordtype">int</span> iterNum,</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            <span class="keywordtype">int</span> sentenceIx, <span class="keywordtype">long</span> clock);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">string</span> buildIxFilename(<span class="keywordtype">int</span> epochNum);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">void</span> epochCopyTempSaves();</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    dtypeh test(SedInputSource&amp; source, dtypeh* loss = NULL);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    dtypeh cosineSimBatch(<span class="keywordtype">int</span> batchSize, map&lt;int,TestInfoByLength*&gt;* testInfoMap = NULL);</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">void</span> testMatching(SedInputSource&amp; source, <span class="keywordtype">int</span>* numWordsOut = NULL, <span class="keywordtype">int</span>* tightMatchesOut = NULL,</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            <span class="keywordtype">int</span>* looseMatchesOut = NULL, dtypeh* allMatchOut = NULL);</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordtype">void</span> matchBatch(<span class="keywordtype">int</span> batchSize, <span class="keywordtype">int</span>* numWords, <span class="keywordtype">int</span>* tightMatches, <span class="keywordtype">int</span>* looseMatches, <span class="keywordtype">int</span>* numAllMatch,</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            vector&lt;string&gt;* tokensRet, map&lt;int,TestInfoByLength*&gt;* testInfoMap = NULL);</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordtype">bool</span> looseMatch(<span class="keywordtype">string</span> s1, <span class="keywordtype">string</span> s2);</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">void</span> demo(SedInputSource&amp; source);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">void</span> formatDemo(vector&lt;string&gt; tokens, vector&lt;string&gt; outTokens, vector&lt;dtypeh&gt; similarities,</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            <span class="keywordtype">int</span> lineLength);</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">string</span> replaceAllDigits(<span class="keywordtype">string</span> in);</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">string</span> replaceDigit(<span class="keywordtype">string</span> in);</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">string</span> pad(<span class="keywordtype">string</span> token, <span class="keywordtype">int</span> padLength);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">int</span> utf8Length(<span class="keywordtype">string</span> s);</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">void</span> printDemoLines(<span class="keywordtype">string</span> tokens, <span class="keywordtype">string</span> out, <span class="keywordtype">string</span> sim, <span class="keywordtype">int</span> lineLength);</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;};</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="structnetlib_1_1TestInfoByLength.html">   77</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structnetlib_1_1TestInfoByLength.html">TestInfoByLength</a> {</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordtype">int</span> sentenceLength;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordtype">int</span> numSentences;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    dtypeh simSum;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    dtypeh simSqSum;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">int</span> numWords;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordtype">int</span> numMatches;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordtype">int</span> numAllMatch;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;};</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;} <span class="comment">/* namespace netlib */</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* TRAINER_H_ */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="aclassnetlib_1_1Trainer_html"><div class="ttname"><a href="classnetlib_1_1Trainer.html">netlib::Trainer</a></div><div class="ttdoc">Trainer class.</div><div class="ttdef"><b>Definition:</b> Trainer.h:32</div></div>
-<div class="ttc" id="astructnetlib_1_1TestInfoByLength_html"><div class="ttname"><a href="structnetlib_1_1TestInfoByLength.html">netlib::TestInfoByLength</a></div><div class="ttdef"><b>Definition:</b> Trainer.h:77</div></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">string</span> ixFilenameBase;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    cublasHandle_t&amp; handle;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    Config&amp; config;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    Network&amp; net;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    Optimizer&amp; optimizer;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    WordVectors &amp;wv;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    SedInputSource&amp; trainSource;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    SedInputSource&amp; testSource;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    SedInputSource&amp; testMatchingSource;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> saveScore(<span class="keywordtype">int</span> iterNum, dtype2 score, dtype2 loss, <span class="keywordtype">long</span> clock);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">void</span> saveMatching(<span class="keywordtype">int</span> iterNum, <span class="keywordtype">int</span> numWords, <span class="keywordtype">int</span> tightMatches, <span class="keywordtype">int</span> looseMatches,</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            dtypeh allMatch, <span class="keywordtype">long</span> clock);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">void</span> save(<span class="keywordtype">int</span> epochNum, <span class="keywordtype">int</span> iterNum, <span class="keywordtype">int</span> sentenceIx, <span class="keywordtype">long</span> clock);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">void</span> tempSave(<span class="keywordtype">int</span> epochNum, <span class="keywordtype">int</span> iterNum, <span class="keywordtype">int</span> sentenceIx, <span class="keywordtype">long</span> clock);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">void</span> saveState(<span class="keyword">const</span> <span class="keywordtype">char</span>* stateFilename, <span class="keywordtype">string</span> weightsFilename, <span class="keywordtype">string</span> initDeltaFilename,</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            <span class="keywordtype">string</span> curandStatesFilename, <span class="keywordtype">string</span> replacerStateFilename, <span class="keywordtype">int</span> epochNum, <span class="keywordtype">int</span> iterNum,</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            <span class="keywordtype">int</span> sentenceIx, <span class="keywordtype">long</span> clock);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">string</span> buildIxFilename(<span class="keywordtype">int</span> epochNum);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordtype">void</span> epochCopyTempSaves();</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    dtypeh test(SedInputSource&amp; source, dtypeh* loss = NULL);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    dtypeh cosineSimBatch(<span class="keywordtype">int</span> batchSize, map&lt;int,TestInfoByLength*&gt;* testInfoMap = NULL);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">void</span> testMatching(SedInputSource&amp; source, <span class="keywordtype">int</span>* numWordsOut = NULL, <span class="keywordtype">int</span>* tightMatchesOut = NULL,</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            <span class="keywordtype">int</span>* looseMatchesOut = NULL, dtypeh* allMatchOut = NULL);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordtype">void</span> matchBatch(<span class="keywordtype">int</span> batchSize, <span class="keywordtype">int</span>* numWords, <span class="keywordtype">int</span>* tightMatches, <span class="keywordtype">int</span>* looseMatches, <span class="keywordtype">int</span>* numAllMatch,</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            vector&lt;string&gt;* tokensRet, map&lt;int,TestInfoByLength*&gt;* testInfoMap = NULL);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">bool</span> looseMatch(<span class="keywordtype">string</span> s1, <span class="keywordtype">string</span> s2);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">void</span> demo(SedInputSource&amp; source);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">void</span> formatDemo(vector&lt;string&gt; tokens, vector&lt;string&gt; outTokens, vector&lt;dtypeh&gt; similarities,</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            <span class="keywordtype">int</span> lineLength);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">string</span> replaceAllDigits(<span class="keywordtype">string</span> in);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">string</span> replaceDigit(<span class="keywordtype">string</span> in);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">string</span> pad(<span class="keywordtype">string</span> token, <span class="keywordtype">int</span> padLength);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">int</span> utf8Length(<span class="keywordtype">string</span> s);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordtype">void</span> printDemoLines(<span class="keywordtype">string</span> tokens, <span class="keywordtype">string</span> out, <span class="keywordtype">string</span> sim, <span class="keywordtype">int</span> lineLength);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;};</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="structnetlib_1_1TestInfoByLength.html">   78</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structnetlib_1_1TestInfoByLength.html">TestInfoByLength</a> {</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordtype">int</span> sentenceLength;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">int</span> numSentences;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    dtypeh simSum;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    dtypeh simSqSum;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordtype">int</span> numWords;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordtype">int</span> numMatches;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordtype">int</span> numAllMatch;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;};</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;} <span class="comment">/* namespace netlib */</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* TRAINER_H_ */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="aclassnetlib_1_1Trainer_html"><div class="ttname"><a href="classnetlib_1_1Trainer.html">netlib::Trainer</a></div><div class="ttdoc">Trainer class.</div><div class="ttdef"><b>Definition:</b> <a href="Trainer_8h_source.html#l00032">Trainer.h:32</a></div></div>
+<div class="ttc" id="astructnetlib_1_1TestInfoByLength_html"><div class="ttname"><a href="structnetlib_1_1TestInfoByLength.html">netlib::TestInfoByLength</a></div><div class="ttdef"><b>Definition:</b> <a href="Trainer_8h_source.html#l00078">Trainer.h:78</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

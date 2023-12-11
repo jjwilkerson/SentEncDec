@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Sentence Encoder/Decoder (SentEncDec): RunTrainExtend.cpp File Reference</title>
+<title>Sentence Encoder/Decoder (SentEncDec): RunEncode.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -62,19 +62,19 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">RunTrainExtend.cpp File Reference</div>  </div>
+<div class="title">RunEncode.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Entry point for a training run that extends a previous run.  
+<p>Builds and runs a network that encodes sentences as vectors.  
 <a href="#details">More...</a></p>
 
-<p><a href="RunTrainExtend_8cpp_source.html">Go to the source code of this file.</a></p>
+<p><a href="RunEncode_8cpp_source.html">Go to the source code of this file.</a></p>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Entry point for a training run that extends a previous run. </p>
-<p>Used to build an executable for a training run that extends a previous run, to a max number of iterations or max training time. Typically used to extend selected runs produced by random search. Enabled by building with -DPROGRAM_VERSION=3 </p>
+<div class="textblock"><p>Builds and runs a network that encodes sentences as vectors. </p>
+<p>Builds the encoder part of the sentence encoder/decoder network, to use for encoding sentences as vectors. Uses the residual-recurrent architecture. Uses pre-trained parameters. </p>
 
-<p class="definition">Definition in file <a class="el" href="RunTrainExtend_8cpp_source.html">RunTrainExtend.cpp</a>.</p>
+<p class="definition">Definition in file <a class="el" href="RunEncode_8cpp_source.html">RunEncode.cpp</a>.</p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
