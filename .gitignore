@@ -1,0 +1,11 @@
+.project
+.cproject
+Debug
+Release
+.settings
+
+/Release Single/
+html/
+latex/
+*.o
+SentEncDec
